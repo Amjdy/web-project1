@@ -2,7 +2,7 @@
 //Step1 : Decleared Variable
 $db = new Mysqli; #line no 3 tells the db varaible name
 $servername = "localhost";
-$database= "riotu website";
+$database= "project";
 $username= "root";
 $password ="";
 //Step 2: Make a Connection

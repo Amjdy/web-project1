@@ -1,9 +1,12 @@
+<?php
+require('db.php'); 
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
         <!-- meta tag -->
         <meta charset="utf-8">
-        <title>Collaboration | Neuron - Machine Learning & AI Startups HTML5 Template</title>
+        <title>Shop | Neuron - Machine Learning & AI Startups HTML5 Template</title>
         <meta name="description" content="">
         <!-- responsive tag -->
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -23,7 +26,7 @@
         <link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
         <!-- off canvas css -->
         <link rel="stylesheet" type="text/css" href="css/off-canvas.css">
-        <!-- flaticon css  -->
+		<!-- flaticon css  -->
         <link rel="stylesheet" type="text/css" href="fonts/flaticon.css">
         <!-- rsmenu CSS -->
         <link rel="stylesheet" type="text/css" href="css/rsmenu-main.css">
@@ -133,7 +136,7 @@
             <!-- Header Menu End -->
         </header>
         <!--Header Section End-->
-        
+
         <!-- Breadcrumbs Start -->
         <div class="breadcrumbs">
             <div class="breadcrumbs-wrap">
@@ -141,11 +144,11 @@
                 <div class="breadcrumbs-inner">
                     <div class="container">
                         <div class="breadcrumbs-text">
-                            <h1 class="breadcrumbs-title mb-17">Collaboration</h1>
+                            <h1 class="breadcrumbs-title mb-17">People</h1>
                             <div class="categories">
                                 <ul>
                                     <li><a href="index.html"><i class="fa fa-house"></i> Home</a></li>
-                                    <li>Collaboration</li>
+                                    <li>People</li>
                                 </ul>
                             </div>
                         </div>
@@ -155,111 +158,161 @@
         </div>
         <!-- Breadcrumbs End -->
 
-        <div class="software-demo software-demo-bg">
-            <!-- About Video Section Start-->
-            <div id="neuron-about-video" class="neuron-about-video soft-demo pt-100 md-pt-80">
-                <div class="container"> 
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 md-mb-30">
-                           <div class="about-video-img">
-                                <img src="images/gaitech.png" alt="">
-                           </div>
-                        </div>
-                        <div class="offset-lg-1"></div>
-                        <div class="col-lg-6 pl-0 col-padding-md">
-                            <div class="sec-title mb-30">
-                                <h2 class="title extra-none mb-23">GaiTech International</h2>
-                                <p class="soft-desc margin-0">Personal data means any data that, either on its own or jointly with other data, can be to used to identify a natural person. You directly provide us with our web sites,</p>
-                            </div>
+        <!-- Services Section Start-->
+        <div class="neuron-about gray-bg pt-92 pb-100 md-pt-71 md-pb-80">
+            <div class="container"> 
 
-                            <div class="about-btn">
-                                <a class="readon radius uppercase" href="http://www.gaitech.hk/">Visit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- .container end -->
-            </div>
-            <!-- About Video Section End-->
+                <div class="sec-title text-center mb-50">
+                    <h2 class="title bg-center margin-0">Senior Researchers</h2>
+                </div>
 
-            <!-- About Section Start-->
-            <div class="neuron-about-video soft-demo pt-100 md-pt-80">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 order-last md-mb-30">
-                           <div class="about-video-img">
-                                <img src="images/elm.jpg" alt="">
-                           </div>
-                        </div>
-                        <div class="col-lg-6 pr-0 col-padding-md">
-                            <div class="sec-title mb-30">
-                                <h2 class="title extra-none mb-23">ELM</h2>
-                                <p class="soft-desc margin-0">Personal data means any data that, either on its own or jointly with other data, can be to used to identify a natural person. You directly provide us with our web sites,</p>
+                <div class="row col-20">
+                <?php 
+                $sel_query1= "select * from members where memberType='Senior Researchers'; ";
+                $result = mysqli_query($db,$sel_query1);
+                while($row= mysqli_fetch_assoc($result)){ ?>
+                    <div class="col-lg-4 col-md-6 mb-40">
+                        <div class="single-about style2 text-center box-shadow">
+                        
+                        <div class="about-title">
+                                <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>" </h3>
+                                    </div> 
+                            <div class="about-desc">
+                                <p class="desc-txt"><?php echo $row["description"];?></p> 
+                                <p>-----------------</p>
+											<p class="sm">
+												<i class="icon icon_pin_alt ico-styled text-primary "></i>
+                                                <?php echo $row["location"];?>
+											</p>
+											<p class="sm">
+												<i class="icon icon_phone ico-styled text-primary "></i>
+												<?php echo $row["phone_number"];?>
+											</p>
+											<p>
+												<i class="icon icon_mail_alt ico-styled text-primary"></i> <a href="<?php echo $row["email"];?>"><?php echo $row["email"];?></a>
+											</p>
+								<a href="<?php echo $row["facebook"];?>" class="facebook-bg-hover"><i class="fa fa-facebook"></i> </a>
+								<a href="<?php echo $row["website"];?>" class="dribbble-bg-hover"><i class="fa fa-dribbble"></i> </a>
+								<a href="<?php echo $row["linkedin"];?>" class="linkedin-bg-hover"><i class="fa fa-linkedin"></i> </a>
+								<a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i class="fa fa-twitter"></i> </a>
                             </div>
+                        </div>                                    
+                    </div> <?php } ?>
+                </div>
 
-                            <div class="about-btn">
-                                <a class="readon radius uppercase" href="https://www.elm.sa/ar/Pages/default.aspx">Visit</a>
+                <div class="sec-title text-center mb-50">
+                    <h2 class="title bg-center margin-0">Research Assistants</h2>
+                </div>
+                <div class="row col-20">
+                <?php 
+                $sel_query1= "select * from members where memberType='Research Assistants'; ";
+                $result = mysqli_query($db,$sel_query1);
+                while($row= mysqli_fetch_assoc($result)){ ?>
+                    <div class="col-lg-4 col-md-6 mb-40">
+                        <div class="single-about style2 text-center box-shadow">
+                        
+                        <div class="about-title">
+                                <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>" </h3>
+                                    </div> 
+                            <div class="about-desc">
+                                <p class="desc-txt"><?php echo $row["description"];?></p> 
+                                <p>-----------------</p>
+											<p class="sm">
+												<i class="icon icon_pin_alt ico-styled text-primary "></i>
+                                                <?php echo $row["location"];?>
+											</p>
+											<p class="sm">
+												<i class="icon icon_phone ico-styled text-primary "></i>
+												<?php echo $row["phone_number"];?>
+											</p>
+											<p>
+												<i class="icon icon_mail_alt ico-styled text-primary"></i> <a href="<?php echo $row["email"];?>"><?php echo $row["email"];?></a>
+											</p>
+								<a href="<?php echo $row["facebook"];?>" class="facebook-bg-hover"><i class="fa fa-facebook"></i> </a>
+								<a href="<?php echo $row["website"];?>" class="dribbble-bg-hover"><i class="fa fa-dribbble"></i> </a>
+								<a href="<?php echo $row["linkedin"];?>" class="linkedin-bg-hover"><i class="fa fa-linkedin"></i> </a>
+								<a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i class="fa fa-twitter"></i> </a>
                             </div>
-                        </div>
-                        <div class="offset-lg-1"></div>
-                    </div>
-                </div><!-- .container end -->
-            </div>
-            <!-- About Section End-->
+                        </div>                                    
+                    </div> <?php } ?>
+                </div>
 
-            <!-- About Section Start-->
-            <div class="neuron-about-video soft-demo pt-100 pb-100 md-pt-80 md-pb-80">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 md-mb-30">
-                           <div class="about-video-img">
-                                <img src="images/cister.jpg" alt="">
-                           </div>
-                        </div>
-                        <div class="offset-lg-1"></div>
-                        <div class="col-lg-6 pl-0 col-padding-md">
-                            <div class="sec-title mb-30">
-                                <h2 class="title extra-none mb-23">CISTER</h2>
-                                <p class="soft-desc margin-0">Personal data means any data that, either on its own or jointly with other data, can be to used to identify a natural person. You directly provide us with our web sites,</p>
+                <div class="sec-title text-center mb-50">
+                    <h2 class="title bg-center margin-0">Postdoc</h2>
+                </div>
+                <div class="row col-20">
+                <?php 
+                $sel_query1= "select * from members where memberType='Postdoc'; ";
+                $result = mysqli_query($db,$sel_query1);
+                while($row= mysqli_fetch_assoc($result)){ ?>
+                    <div class="col-lg-4 col-md-6 mb-40">
+                        <div class="single-about style2 text-center box-shadow">
+                        
+                        <div class="about-title">
+                                <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>" </h3>
+                                    </div> 
+                            <div class="about-desc">
+                                <p class="desc-txt"><?php echo $row["description"];?></p> 
+                                <p>-----------------</p>
+											<p class="sm">
+												<i class="icon icon_pin_alt ico-styled text-primary "></i>
+                                                <?php echo $row["location"];?>
+											</p>
+											<p class="sm">
+												<i class="icon icon_phone ico-styled text-primary "></i>
+												<?php echo $row["phone_number"];?>
+											</p>
+											<p>
+												<i class="icon icon_mail_alt ico-styled text-primary"></i> <a href="<?php echo $row["email"];?>"><?php echo $row["email"];?></a>
+											</p>
+								<a href="<?php echo $row["facebook"];?>" class="facebook-bg-hover"><i class="fa fa-facebook"></i> </a>
+								<a href="<?php echo $row["website"];?>" class="dribbble-bg-hover"><i class="fa fa-dribbble"></i> </a>
+								<a href="<?php echo $row["linkedin"];?>" class="linkedin-bg-hover"><i class="fa fa-linkedin"></i> </a>
+								<a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i class="fa fa-twitter"></i> </a>
                             </div>
-
-                            <div class="about-btn">
-                                <a class="readon radius uppercase" href="https://www.cister.isep.ipp.pt/">Visit</a>
+                        </div>                                    
+                    </div> <?php } ?>
+                </div>
+                <div class="sec-title text-center mb-50">
+                    <h2 class="title bg-center margin-0">Visiting PhD Students</h2>
+                </div>
+                <div class="row col-20">
+                <?php 
+                $sel_query1= "select * from members where memberType='Visiting PhD Students'; ";
+                $result = mysqli_query($db,$sel_query1);
+                while($row= mysqli_fetch_assoc($result)){ ?>
+                    <div class="col-lg-4 col-md-6 mb-40">
+                        <div class="single-about style2 text-center box-shadow">
+                        
+                            <div class="about-title">
+                                <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>" </h3>
+                                    </div> 
+                            <div class="about-desc">
+                                <p class="desc-txt"><?php echo $row["description"];?></p> 
+                                <p>-----------------</p>
+											<p class="sm">
+												<i class="icon icon_pin_alt ico-styled text-primary "></i>
+                                                <?php echo $row["location"];?>
+											</p>
+											<p class="sm">
+												<i class="icon icon_phone ico-styled text-primary "></i>
+												<?php echo $row["phone_number"];?>
+											</p>
+											<p>
+												<i class="icon icon_mail_alt ico-styled text-primary"></i> <a href="<?php echo $row["email"];?>"><?php echo $row["email"];?></a>
+											</p>
+								<a href="<?php echo $row["facebook"];?>" class="facebook-bg-hover"><i class="fa fa-facebook"></i> </a>
+								<a href="<?php echo $row["website"];?>" class="dribbble-bg-hover"><i class="fa fa-dribbble"></i> </a>
+								<a href="<?php echo $row["linkedin"];?>" class="linkedin-bg-hover"><i class="fa fa-linkedin"></i> </a>
+								<a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i class="fa fa-twitter"></i> </a>
                             </div>
-                        </div>
-                    </div>
-                </div><!-- .container end -->
-            </div>
-            <!-- About Section End-->
+                        </div>                                   
+                    </div> <?php } ?>
+                </div>
 
-            <!-- About Section Start-->
-            <div class="neuron-about-video soft-demo pt-100 md-pt-80">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 order-last md-mb-30">
-                           <div class="about-video-img">
-                                <img src="images/machinestalk.png" alt="">
-                           </div>
-                        </div>
-                        <div class="col-lg-6 pr-0 col-padding-md">
-                            <div class="sec-title mb-30">
-                                <h2 class="title extra-none mb-23">machinestalk</h2>
-                                <p class="soft-desc margin-0">Personal data means any data that, either on its own or jointly with other data, can be to used to identify a natural person. You directly provide us with our web sites,</p>
-                            </div>
-
-                            <div class="about-btn">
-                                <a class="readon radius uppercase" href="https://www.machinestalk.com/">Visit</a>
-                            </div>
-                        </div>
-                        <div class="offset-lg-1"></div>
-                    </div>
-                </div><!-- .container end -->
-            </div>
-            <!-- About Section End-->
-
-            <!-- Newsletter Section Start -->
-           <br><br>
-            <!-- Newsletter Section End -->
+            </div><!-- .container end -->
         </div>
+        <!-- Services Section End-->
 
         <!-- Footer Start -->
         <footer id="rs-footer" class="rs-footer">
@@ -300,7 +353,7 @@
                                             <li><a href="about.html">About Us</a></li>
                                             <li><a href="features.html">Features</a></li>
                                             <li><a href="mobile-app.html">Mobile App</a></li>
-                                            <li><a href="software-demo.html">Collaboration</a></li>
+                                            <li><a href="software-demo.html">Software Demo</a></li>
                                             <li><a href="software-download.html">Software Download</a></li>
                                         </ul>
                                     </div>
@@ -345,7 +398,7 @@
                                             <i class="flaticon-error"></i>
                                         </div>
                                     </div>
-                                </div>                            
+                                </div>
                             </div>
                             <div class="chatbox-text text-center">
                                 <p>Hello Friend, I can help you with anything related to chatbots!</p>
@@ -364,7 +417,7 @@
             <div class="footer-bottom">
                 <div class="container">                    
                     <div class="copyright text-center">
-                        <p>© Copyrights 2019 <a href="#">AuburnForest</a></p>
+                        <p>© copyrights 2019 <a href="#">AuburnForest</a></p>
                     </div>
                 </div>
             </div>
@@ -388,7 +441,7 @@
                 </div>
             </div>
         </div>
-        <!-- Search Modal End --> 
+        <!-- Search Modal End -->  
         
         <!-- modernizr js -->
         <script src="js/modernizr-2.8.3.min.js"></script>
@@ -409,7 +462,7 @@
         <script src="js/rsmenu-main.js"></script>
         <!-- plugins js -->
         <script src="js/plugins.js"></script>
-         <!-- main js -->
+		 <!-- main js -->
         <script src="js/main.js"></script>
     </body>
 </html>
