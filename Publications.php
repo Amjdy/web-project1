@@ -1,6 +1,26 @@
 <?php
-require('db.php'); 
+#require('db.php'); 
 ?>
+<?php
+// first thing is before start of page add this line
+session_start();
+$valid = $_SESSION["validUser"]; 
+//including the database connection file
+include_once("dp.php");
+
+   if( isset( $_SESSION['counter'] ) ) {
+      $_SESSION['counter'] += 1;
+   }else {
+      $_SESSION['counter'] = 1;
+   }
+	
+   $msg = "You have visited this page ".  $_SESSION['counter'];
+   $msg .= "in this session."; // this is concatenation 
+ 
+//fetching data in descending order (lastest entry first)
+$result = mysqli_query($mysqli, "SELECT * FROM myinfo ORDER BY id DESC"); // using mysqli_query instead
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -67,7 +87,8 @@ require('db.php');
                             <ul>
                                 <li><i class="fa fa-envelope-o"></i><a
                                         href="mailto:RIOTU@psu.edu.sa">RIOTU@psu.edu.sa</a></li>
-                                <li><i class="fa fa-phone"></i><a href="tel:+123456789">(+123) 456789</a></li>
+                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484-8851">+966 (11) 484-8851</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -154,11 +175,11 @@ require('db.php');
             <div class="breadcrumbs-inner">
                 <div class="container">
                     <div class="breadcrumbs-text">
-                        <h1 class="breadcrumbs-title mb-17">Members</h1>
+                        <h1 class="breadcrumbs-title mb-17">Publications</h1>
                         <div class="categories">
                             <ul>
                                 <li><a href="index.html"><i class="fa fa-house"></i> Home</a></li>
-                                <li>Members</li>
+                                <li>Publications</li>
                             </ul>
                         </div>
                     </div>
@@ -167,6 +188,104 @@ require('db.php');
         </div>
     </div>
     <!-- Breadcrumbs End -->
+
+    <!-- Publications Section Start -->
+    <div id="neuron-blog" class="neuron-blog gray-bg pt-90 pb-175 md-pt-71 md-pb-80">
+        <div class="container">
+            <div class="sec-title text-center mb-45">
+                <h2 class="title bg-center">Books</h2>
+            </div>
+            <div class="rs-carousel owl-carousel wow" data-loop="true" data-items="3" data-margin="40"
+                data-autoplay="true" data-autoplay-timeout="5000" data-smart-speed="2000" data-dots="false"
+                data-nav="false" data-nav-speed="false" data-mobile-device="1" data-mobile-device-nav="false"
+                data-mobile-device-dots="false" data-ipad-device="2" data-ipad-device-nav="false"
+                data-ipad-device-dots="false" data-ipad-device2="1" data-ipad-device-nav2="false"
+                data-ipad-device-dots2="false" data-md-device="3" data-md-device-nav="false"
+                data-md-device-dots="false">
+                <div class="single-blog">
+                    <div class="blog-img sec-bg">
+                        <a href="#"><img src="images/blog/1.jpg" alt=""></a>
+                    </div>
+                    <div class="blog-details box-shadow-2 white-bg">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>Nov 28, 2019</li>
+                            <li><i class="fa fa-user-o" aria-hidden="true"></i>Admin</li>
+                            <li><span>10</span>Comments</li>
+                        </ul>
+                        <div class="blog-desc">
+                            <h3 class="blog-title"><a href="#">Man in Red Plaid Shirt Talking on Phone Terrace</a></h3>
+                            <p class="blog-txt">The Tutorial covers examples of identification And Rew Garfield and
+                                verifies if a picture</p>
+                            <div class="blog-btn">
+                                <a class="readon radius capitalize" href="single-blog.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-blog">
+                    <div class="blog-img sec-bg">
+                        <a href="#"><img src="images/blog/2.jpg" alt=""></a>
+                    </div>
+                    <div class="blog-details box-shadow-2 white-bg">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>Nov 28, 2019</li>
+                            <li><i class="fa fa-user-o" aria-hidden="true"></i>Admin</li>
+                            <li><span>10</span>Comments</li>
+                        </ul>
+                        <div class="blog-desc">
+                            <h3 class="blog-title"><a href="#">Man in Red Plaid Shirt Talking on Phone Terrace</a></h3>
+                            <p class="blog-txt">The Tutorial covers examples of identification And Rew Garfield and
+                                verifies if a picture</p>
+                            <div class="blog-btn">
+                                <a cl#ass="readon radius capitalize" href="single-blog.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-blog">
+                    <div class="blog-img sec-bg">
+                        <a href="#"><img src="images/blog/3.jpg" alt=""></a>
+                    </div>
+                    <div class="blog-details box-shadow-2 white-bg">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>Nov 28, 2019</li>
+                            <li><i class="fa fa-user-o" aria-hidden="true"></i>Admin</li>
+                            <li><span>10</span>Comments</li>
+                        </ul>
+                        <div class="blog-desc">
+                            <h3 class="blog-title"><a href="#">Man in Red Plaid Shirt Talking on Phone Terrace</a></h3>
+                            <p class="blog-txt">The Tutorial covers examples of identification And Rew Garfield and
+                                verifies if a picture</p>
+                            <div class="blog-btn">
+                                <a class="readon radius capitalize" href="single-blog.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-blog">
+                    <div class="blog-img sec-bg">
+                        <a href="#"><img src="images/blog/2.jpg" alt=""></a>
+                    </div>
+                    <div class="blog-details box-shadow-2 white-bg">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>Nov 28, 2019</li>
+                            <li><i class="fa fa-user-o" aria-hidden="true"></i>Admin</li>
+                            <li><span>10</span>Comments</li>
+                        </ul>
+                        <div class="blog-desc">
+                            <h3 class="blog-title"><a href="#">Man in Red Plaid Shirt Talking on Phone Terrace</a></h3>
+                            <p class="blog-txt">The Tutorial covers examples of identification And Rew Garfield and
+                                verifies if a picture</p>
+                            <div class="blog-btn">
+                                <a class="readon radius capitalize" href="single-blog.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Publications Section End -->
 
     <!-- Services Section Start-->
     <div class="neuron-about gray-bg pt-92 pb-100 md-pt-71 md-pb-80">
