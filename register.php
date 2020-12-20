@@ -292,124 +292,77 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <!-- Registration Section End -->
 
-        <!-- Footer Start -->
-        <footer id="rs-footer" class="rs-footer">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-12 col-sm-12 single-footer-column mb-md-30">
-                            <div class="about-widget pr-20">
-                                <div class="footer-logo">
-                                    <img src="images/riotu-logo-w.png" alt="Footer Logo">
-                                </div>                              
-                                <div class="footer-info">
-                                    <p class="footer-desc">Robotics and Internet of Things University-Lab in Prince Sultan University. </p>
-                                </div>                                
-                                <ul class="social-links">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                </ul>
+    <!-- Footer Start -->
+    <footer id="rs-footer" class="rs-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12 single-footer-column mb-md-30">
+                        <div class="about-widget pr-20">
+                            <div class="footer-logo w-50">
+                                <img src="images/riotu-logo-transparent.png" alt="Footer Logo">
                             </div>
+                            <div class="footer-info">
+                                <p class="footer-desc">Robotics and Internet of Things University-Lab in Prince Sultan
+                                    University. </p>
+                            </div>
+                            <ul class="social-links">
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
+                                
+                            </ul>
                         </div>
+                    </div>
 
-                        <div class="col-lg-3 col-md-12 col-sm-12 single-footer-column">
-                            <h4 class="footer-title">Work Hours</h4>
-                            <p>8.00 AM - 3.00 PM , Sunday - Thursday</p>
-                            <p>Our Support team is available 24/7 to answer your queries through email</p>
-                        </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 single-footer-column">
+                        <h4 class="footer-title">Work Hours</h4>
+                        <p>8.00 AM - 3.00 PM , Sunday - Thursday</p>
+                        <p>Our Support team is available 24/7 to answer your queries through email</p>
+                    </div>
 
-                        <div class="col-lg-3 col-md-12 col-sm-12 single-footer-column mb-md-30">
-                            <div class="footer-menu">
-                                <h4 class="footer-title">Navigate</h4>
-                                <div class="row">
-                                    <div class="col-lg-6 pr-0">
-                                        <ul>
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="features.html">Research</a></li>
-                                            <li><a href="blog.html">projects</a></li>
-                                            <li><a href="shop.php">People</a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="software-demo.html">Collaboration</a></li>
-                                        </ul>
-                                    </div>
+                    <div class="col-lg-2 col-md-12 col-sm-12 single-footer-column mb-md-30">
+                        <div class="footer-menu">
+                            <h4 class="footer-title">Navigate</h4>
+                            <div class="row">
+                                <div class="col-lg-6 pr-0">
+                                    <ul>
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="research.html">Research</a></li>
+                                        <li><a href="projects.html">projects</a></li>
+                                        <li><a href="members.php">Members</a></li>
+                                        <li><a href="about.html">About</a></li>
+                                        <li><a href="Collaboration.html">Collaboration</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 single-footer-column">
-                            <div class="footer-menu">
-                                <h4 class="footer-title">Privacy & Tos</h4>
-                                <ul>
-                                    <li><a href="privacy.html">Privacy</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
-                    <div class="chatbox-part">
-                        <div class="chatbox box-shadow white-bg">
-                            <div class="chatbox-top gradient-bg">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-8">
-                                        <div class="chat-img">
-                                            <img src="images/team/chat.png" alt="">
-                                            <span class="active-icon"></span>
-                                        </div>
-                                        <div class="chat-identity pl-10">
-                                            <h4 class="chat-title white-color mb-0">ChatBot</h4>
-                                            <span class="active-status white-color">Active</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="close-icon">
-                                            <i class="flaticon-error"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="chatbox-text text-center">
-                                <p>Hello Friend, I can help you with anything related to chatbots!</p>
-                                <p class="mb-0">Let me know if you're planning to create a chatbot for your business!﻿</p>
-                            </div>
-                            <div class="chatbox-btn">
-                                <a class="readon radius" href="#">Let’s Start a Chat</a>
-                            </div>
-                        </div>
-                        <div class="chat-icon text-center">
-                            <i class="flaticon-chat"></i>
+                    <div class="col-lg-2 single-footer-column">
+                        <div class="footer-menu">
+                            <h4 class="footer-title">Privacy & Tos</h4>
+                            <ul>
+                                <li><a href="privacy.html">Privacy</a></li>
+                                <li><a href="login.php">Login</a></li>
+                                <li><a href="register.php">Register</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+                
             </div>
-            <div class="footer-bottom">
-                <div class="container">                    
-                    <div class="copyright text-center">
-                        <p>© Copyrights 2020 <a href="#">Mohanad Baras & Amjad Alsehy</a></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- Footer End -->
-
-        <!-- Search Modal Start -->
-        <div aria-hidden="true" class="modal fade search-modal" role="dialog" tabindex="-1">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <i class="flaticon-cross-out"></i>
-            </button>
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="search-block clearfix">
-                        <form>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="Searching..." type="text">
-                            </div>
-                        </form>
-                    </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="copyright text-center">
+                    <p>© Copyrights 2020 <a href="#">Mohanad Baras & Amjad Alsehy & Sultan abbood</a></p>
                 </div>
             </div>
         </div>
-        <!-- Search Modal End -->  
+    </footer>
+    <!-- Footer End -->
         
         <!-- modernizr js -->
         <script src="js/modernizr-2.8.3.min.js"></script>
