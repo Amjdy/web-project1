@@ -18,7 +18,7 @@ include_once("dp.php");
    $msg .= "in this session."; // this is concatenation 
  
 //fetching data in descending order (lastest entry first)
-$result = mysqli_query($mysqli, "SELECT * FROM myinfo ORDER BY id DESC"); // using mysqli_query instead
+$result = mysqli_query($mysqli, "SELECT * FROM publications ORDER BY id DESC"); // using mysqli_query instead
 ?>
 
 <!DOCTYPE html>

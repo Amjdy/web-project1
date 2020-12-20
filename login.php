@@ -1,4 +1,94 @@
-﻿<!DOCTYPE html>
+﻿<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: welcome.php");
+    exit;
+}
+ 
+// Include config file
+require_once "db.php";
+ 
+// Define variables and initialize with empty values
+$username = $password = "";
+$username_err = $password_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Check if username is empty
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Please enter username.";
+    } else{
+        $username = trim($_POST["username"]);
+    }
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate credentials
+    if(empty($username_err) && empty($password_err)){
+        // Prepare a select statement
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($db, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = $username;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username;                            
+                            
+                            // Redirect user to welcome page
+                            header("location: welcome.php");
+                        } else{
+                            // Display an error message if password is not valid
+                            $password_err = "The password you entered was not valid.";
+                        }
+                    }
+                } else{
+                    // Display an error message if username doesn't exist
+                    $username_err = "No account found with that username.";
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($db);
+}
+?>
+
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -40,6 +130,14 @@
     <link rel="stylesheet" type="text/css" href="css/spacing.css">
     <!-- responsive css -->
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+    <style>
+        .help-block {
+            display: block;
+            margin-bottom: 10px;
+            color: #e80703;
+        }
+    </style>
 </head>
 
 <body>
@@ -65,23 +163,19 @@
                             <ul>
                                 <li><i class="fa fa-envelope-o"></i><a
                                         href="mailto:RIOTU@psu.edu.sa">RIOTU@psu.edu.sa</a></li>
-                                <li><i class="fa fa-phone"></i><a href="tel:+123456789">(+123) 456789</a></li>
+                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484 - 8851">+966 (11) 484 - 8851</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <!-- About -->
-                                <li><a href="login.html">Log in</a></li>
-                                <!-- End About -->
-                                <!-- About -->
-                                <li><a href="register.html">Register</a></li>
-                                <!-- End About -->
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="register.php">Register</a></li>
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -118,14 +212,6 @@
                                         <!-- Members -->
                                         <li><a href="members.php">Members</a></li>
                                         <!-- End Members -->
-                                        <!-- Pages Mega Menu Start -->
-                                        <li class="menu-item-has-children"><a href="#">Pages</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="login.html">Login</a></li>
-                                                <li><a href="register.html">Register</a></li>
-                                            </ul>
-                                        </li>
-                                        <!--Pages Mega Menu End -->
                                         <!-- About -->
                                         <li><a href="about.html">About</a></li>
                                         <!-- End About -->
@@ -178,13 +264,23 @@
         <div class="container">
             <div id="form-messages"></div>
             <div class="login-width">
-                <form class="login-form" id="login-form" method="post" action="mailer.php">
-                    <label id="username">Username or Email Address*</label>
-                    <input class="custom-placeholder" type="text" name="name" required>
+                <form class="login-form" id="login-form" method="post"
+                    action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+                    <div class="<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                        <label id="username">Username*</label>
+                        <input type="text" name="username" class="custom-placeholder" required
+                            value="<?php echo $username; ?>">
+                        <span class="help-block"><?php echo $username_err; ?></span>
+                    </div>
+
+                    <div class="<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                        <label id="psw">Password*</label>
+                        <input type="password" name="password" class="custom-placeholder" required>
+                        <span class="help-block"><?php echo $password_err; ?></span>
+                    </div>
 
 
-                    <label id="psw">Password*</label>
-                    <input class="custom-placeholder" type="password" name="psw" required>
 
                     <div class="row">
                         <div class="col-md-6 col-sm-6 center-xs">
@@ -192,9 +288,7 @@
                                 <input type="checkbox" name="Remember"> Remember me
                             </label>
                         </div>
-                        <div class="col-md-6 col-sm-6 center-xs">
-                            <a class="lost-psw" href="#">Lost your password?</a>
-                        </div>
+
                     </div>
 
                     <div class="login-btn mt-10 mb-21">
@@ -204,7 +298,7 @@
 
                 <div class="bottom-content text-center">
                     <div class="line-set">or</div>
-                    <a class="readon mt-21" href="register.html">Create An Account</a>
+                    <a class="readon mt-21" href="register.php">Create An Account</a>
                 </div>
             </div>
         </div>
@@ -216,120 +310,74 @@
         <div class="footer-top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-12 col-sm-12 single-footer-column mb-md-30">
+                    <div class="col-lg-4 col-md-12 col-sm-12 single-footer-column mb-md-30">
                         <div class="about-widget pr-20">
-                            <div class="footer-logo">
-                                <img src="images/riotu-logo-w.png" alt="Footer Logo">
+                            <div class="footer-logo w-50">
+                                <img src="images/riotu-logo-transparent.png" alt="Footer Logo">
                             </div>
                             <div class="footer-info">
                                 <p class="footer-desc">Robotics and Internet of Things University-Lab in Prince Sultan
                                     University. </p>
                             </div>
                             <ul class="social-links">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
+                                
                             </ul>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-12 col-sm-12 single-footer-column">
+                    <div class="col-lg-4 col-md-12 col-sm-12 single-footer-column">
                         <h4 class="footer-title">Work Hours</h4>
                         <p>8.00 AM - 3.00 PM , Sunday - Thursday</p>
                         <p>Our Support team is available 24/7 to answer your queries through email</p>
                     </div>
 
-                    <div class="col-lg-3 col-md-12 col-sm-12 single-footer-column mb-md-30">
+                    <div class="col-lg-2 col-md-12 col-sm-12 single-footer-column mb-md-30">
                         <div class="footer-menu">
                             <h4 class="footer-title">Navigate</h4>
                             <div class="row">
                                 <div class="col-lg-6 pr-0">
                                     <ul>
                                         <li><a href="index.html">Home</a></li>
-                                        <li><a href="features.html">Research</a></li>
-                                        <li><a href="blog.html">projects</a></li>
-                                        <li><a href="shop.php">People</a></li>
+                                        <li><a href="research.html">Research</a></li>
+                                        <li><a href="projects.html">projects</a></li>
+                                        <li><a href="members.php">Members</a></li>
                                         <li><a href="about.html">About</a></li>
-                                        <li><a href="software-demo.html">Collaboration</a></li>
+                                        <li><a href="Collaboration.html">Collaboration</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 single-footer-column">
+                    <div class="col-lg-2 single-footer-column">
                         <div class="footer-menu">
                             <h4 class="footer-title">Privacy & Tos</h4>
                             <ul>
                                 <li><a href="privacy.html">Privacy</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
+                                <li><a href="login.php">Login</a></li>
+                                <li><a href="register.php">Register</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="chatbox-part">
-                    <div class="chatbox box-shadow white-bg">
-                        <div class="chatbox-top gradient-bg">
-                            <div class="row align-items-center">
-                                <div class="col-lg-8">
-                                    <div class="chat-img">
-                                        <img src="images/team/chat.png" alt="">
-                                        <span class="active-icon"></span>
-                                    </div>
-                                    <div class="chat-identity pl-10">
-                                        <h4 class="chat-title white-color mb-0">ChatBot</h4>
-                                        <span class="active-status white-color">Active</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="close-icon">
-                                        <i class="flaticon-error"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chatbox-text text-center">
-                            <p>Hello Friend, I can help you with anything related to chatbots!</p>
-                            <p class="mb-0">Let me know if you're planning to create a chatbot for your business!﻿</p>
-                        </div>
-                        <div class="chatbox-btn">
-                            <a class="readon radius" href="#">Let’s Start a Chat</a>
-                        </div>
-                    </div>
-                    <div class="chat-icon text-center">
-                        <i class="flaticon-chat"></i>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <div class="footer-bottom">
             <div class="container">
                 <div class="copyright text-center">
-                    <p>© Copyrights 2020 <a href="#">Mohanad Baras & Amjad Alsehy</a></p>
+                    <p>© Copyrights 2020 <a href="#">Mohanad Baras & Amjad Alsehy & Sultan abbood</a></p>
                 </div>
             </div>
         </div>
     </footer>
     <!-- Footer End -->
 
-    <!-- Search Modal Start -->
-    <div aria-hidden="true" class="modal fade search-modal" role="dialog" tabindex="-1">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <i class="flaticon-cross-out"></i>
-        </button>
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="search-block clearfix">
-                    <form>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Searching..." type="text">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Search Modal End -->
+    
 
     <!-- modernizr js -->
     <script src="js/modernizr-2.8.3.min.js"></script>
