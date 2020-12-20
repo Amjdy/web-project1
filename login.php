@@ -94,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <!-- meta tag -->
     <meta charset="utf-8">
-    <title>Login | Neuron - Machine Learning & AI Startups HTML5 Template</title>
+    <title>LOGIN | RIOTU LAB</title>
     <meta name="description" content="">
     <!-- responsive tag -->
     <meta http-equiv="x-ua-compatible" content="ie=edge">

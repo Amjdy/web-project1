@@ -145,25 +145,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <ul>
                                 <li><i class="fa fa-envelope-o"></i><a
                                         href="mailto:RIOTU@psu.edu.sa">RIOTU@psu.edu.sa</a></li>
-                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484 - 8851">+966 (11) 484 -
-                                        8851</a></li>
+                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484 - 8851">+966 (11) 484 - 8851</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <li><a href="register.php">Register</a></li>
-                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li><a
-                                        href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i
-                                            class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="logout.php">Log out</a></li>
+                                <li><a href="welcome.php">My account</a></li>
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
                                 <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i
-                                            class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>

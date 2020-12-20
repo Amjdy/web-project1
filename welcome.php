@@ -84,7 +84,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <li><a href="register.php">Register</a></li>
+                                <li><a href="logout.php">Log out</a></li>
                                 <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
                                 <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
