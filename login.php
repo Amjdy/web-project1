@@ -62,7 +62,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;                            
-                            
+                                if($_SESSION["username"] == "admin"){
+                              $_SESSION["validUser"] = true;
+                              }else{
+                             $_SESSION["validUser"] = false;
+                            }
                             // Redirect user to welcome page
                             header("location: welcome.php");
                         } else{
@@ -163,7 +167,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <ul>
                                 <li><i class="fa fa-envelope-o"></i><a
                                         href="mailto:RIOTU@psu.edu.sa">RIOTU@psu.edu.sa</a></li>
-                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484 - 8851">+966 (11) 484 - 8851</a></li>
+                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484 - 8851">+966 (11) 484 -
+                                        8851</a></li>
                             </ul>
                         </div>
                     </div>
@@ -171,11 +176,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="toolbar-sl-share">
                             <ul>
                                 <li><a href="register.php">Register</a></li>
-                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li><a
+                                        href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i
+                                            class="fa fa-youtube-play"></i></a></li>
                                 <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i
+                                            class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -320,12 +330,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     University. </p>
                             </div>
                             <ul class="social-links">
-                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li><a
+                                        href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i
+                                            class="fa fa-youtube-play"></i></a></li>
                                 <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
-                                
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i
+                                            class="fa fa-linkedin"></i></a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -364,7 +379,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="footer-bottom">
@@ -377,7 +392,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </footer>
     <!-- Footer End -->
 
-    
+
 
     <!-- modernizr js -->
     <script src="js/modernizr-2.8.3.min.js"></script>

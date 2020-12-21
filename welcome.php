@@ -1,4 +1,6 @@
 ﻿<?php
+require('db.php'); 
+
 // Initialize the session
 session_start();
  
@@ -77,7 +79,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                             <ul>
                                 <li><i class="fa fa-envelope-o"></i><a
                                         href="mailto:RIOTU@psu.edu.sa">RIOTU@psu.edu.sa</a></li>
-                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484 - 8851">+966 (11) 484 - 8851</a></li>
+                                <li><i class="fa fa-phone"></i><a href="tel:+966 (11) 484 - 8851">+966 (11) 484 -
+                                        8851</a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,11 +88,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         <div class="toolbar-sl-share">
                             <ul>
                                 <li><a href="logout.php">Log out</a></li>
-                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li><a
+                                        href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i
+                                            class="fa fa-youtube-play"></i></a></li>
                                 <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i
+                                            class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -165,7 +173,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                 <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
                                 <li>Welcome</li>
                             </ul>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -173,8 +181,50 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         </div>
     </div>
     <!-- Breadcrumbs End -->
-<h1 class="text-center pt-40">Hi, <?php echo htmlspecialchars($_SESSION["username"]); ?>. Welcome to our site.</h1>
+    <h1 class="text-center pt-40">Hi, <?php echo htmlspecialchars($_SESSION["username"]); ?>. Welcome to our site.</h1>
+    <?php
+$result = mysqli_query($db, "SELECT * FROM users ORDER BY id DESC");
 
+    if($_SESSION["validUser"]){
+   echo "<table width='80%' border=0>";
+   echo     "<tr bgcolor='#FFCCCC'>";
+  echo     "<td>ID</td>"; 
+   echo     "<td>Name</td>";
+   echo        "<td>password</td>";
+    echo        "<td>opt</td>";
+   echo     "</tr>";
+
+
+         
+        
+        while($res = mysqli_fetch_array($result)) {         
+            echo "<tr>";
+            echo "<td>".$res['id']."</td>";
+            echo "<td><font color='red'>".$res['username']."</font></td>";
+            echo "<td><font color='orange'>".$res['password']."</font></td>";    
+            echo "<td><a href=\"editinfo.php?id=$res[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$res[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a></td>";        
+        }
+        }
+        
+        else{
+    echo "<table width='80%' border=0>";
+   echo     "<tr bgcolor='#FFCCCC'>";
+  echo     "<td>ID</td>"; 
+   echo     "<td>Name</td>";
+   echo        "<td>password</td>";
+   echo     "</tr>";
+        while($res = mysqli_fetch_array($result)) {         
+            echo "<tr>";
+            echo "<td>".$res['id']."</td>";
+            echo "<td><font color='red'>".$res['username']."</font></td>";
+            echo "<td><font color='orange'>".$res['password']."</font></td>";   
+                   
+        }
+    }
+       
+
+   echo  "</table>";
+ ?>
 
 
     <!-- reset Section Start -->
@@ -214,12 +264,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                     University. </p>
                             </div>
                             <ul class="social-links">
-                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li><a
+                                        href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i
+                                            class="fa fa-youtube-play"></i></a></li>
                                 <li><a href="https://twitter.com/riotulab"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i class="fa fa-linkedin"></i></a></li>
-                                
+                                <li><a href="https://www.linkedin.com/in/anis-koubaa-84aa4344/"><i
+                                            class="fa fa-linkedin"></i></a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -258,7 +313,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="footer-bottom">
@@ -271,7 +326,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </footer>
     <!-- Footer End -->
 
-    
+
 
     <!-- modernizr js -->
     <script src="js/modernizr-2.8.3.min.js"></script>
