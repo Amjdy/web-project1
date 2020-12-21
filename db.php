@@ -10,7 +10,7 @@ $db->connect($servername, $username,$password,$database);
 
 //Step 3: Check for Success
 if($db){
-    echo "Welcome from db.php file";
+
 }else{
     echo "conneciton error";
 }
