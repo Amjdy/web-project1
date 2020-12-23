@@ -1,5 +1,9 @@
 <?php
 require('db.php'); 
+
+// Initialize the session
+session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -208,6 +212,10 @@ require('db.php');
                                     class="fa fa-linkedin"></i> </a>
                             <a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i
                                     class="fa fa-twitter"></i> </a>
+                                <br><br>
+                                   <?php if(isset($_SESSION["validUser"])){
+                                    echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                   }?>
                         </div>
                     </div>
                 </div> <?php } ?>
@@ -251,6 +259,10 @@ require('db.php');
                                     class="fa fa-linkedin"></i> </a>
                             <a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i
                                     class="fa fa-twitter"></i> </a>
+                                    <br><br>
+                                   <?php if(isset($_SESSION["validUser"])){
+                                    echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                   }?>
                         </div>
                     </div>
                 </div> <?php } ?>
@@ -294,6 +306,10 @@ require('db.php');
                                     class="fa fa-linkedin"></i> </a>
                             <a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i
                                     class="fa fa-twitter"></i> </a>
+                                    <br><br>
+                                   <?php if(isset($_SESSION["validUser"])){
+                                    echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                   }?>
                         </div>
                     </div>
                 </div> <?php } ?>
@@ -336,6 +352,10 @@ require('db.php');
                                     class="fa fa-linkedin"></i> </a>
                             <a href="<?php echo $row["twitter"];?>" class="twitter-bg-hover"><i
                                     class="fa fa-twitter"></i> </a>
+                                    <br><br>
+                                   <?php if(isset($_SESSION["validUser"])){
+                                    echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                   }?>
                         </div>
                     </div>
                 </div> <?php } ?>

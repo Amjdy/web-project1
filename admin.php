@@ -2,176 +2,39 @@
 // Include config file
 require_once "db.php";
  
-// Define variables and initialize with empty values
-$username = $position = $usertype = $email /*= $phon = $website = $linkedin = $facebook = $twitter = $description = $location*/ = "";
-$username_err = $position_err = $usertype_err = $email_err /*= $phon_err = $website_err = $linkedin_err = $facebook_err = $twitter_err = $description_err = $location_err*/ = "";
+
  
 // Processing form data when form is submitted
+
+	$username_err = "";	
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Validate username
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter a username.";
-    } else{
-        // Prepare a select statement
-        $sql = "SELECT id FROM members WHERE username = ?";
-        
-        if($stmt = mysqli_prepare($db, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
-            // Set parameters
-            $param_username = trim($_POST["username"]);
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $username_err = "This member is already exist in the database.";
-                } else{
-                    $username = trim($_POST["username"]);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
+    $fn = $_POST['username'];
+	$ps =  $_POST['pos'];
+	$ds =  $_POST['des'];
+	$lc = $_POST['loc'];
+	$ph =  $_POST['phone'];
+	$em =  $_POST['email'];
+	$fb = $_POST['face'];
+	$ws = $_POST['web'];
+	$lk =  $_POST['link'];
+    $twi =  $_POST['tw'];
+    foreach ($_GET['ty'] as $selectedOption)
+    $type = $selectedOption;
 
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
-    }
+	
+	// checking empty fields
+	if(empty($fn) ) {
+			//echo "<font color='red'>Name field is empty.</font><br/>";
+			$username_err= "Please enter your Full name";
+			
+	} else {	
+		//updating the table
+		$result = mysqli_query($db, "INSERT INTO members Name='$fn',position='$ps', description='$ds',location='$lc' phone_number='$ph',email='$em', facebook='$fb', website='$ws', linkedin='$lk', twitter='$twi', memberType='$type' ");
 
-    // Validate position
-    if(empty(trim($_POST["position"]))){
-        $position_err = "Please enter a position.";
-    } else{
-        // Prepare a select statement
-        $sql = "SELECT id FROM members WHERE position = ?";
-        
-        if($stmt = mysqli_prepare($db, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_position);
-            
-            // Set parameters
-            $param_position = trim($_POST["position"]);
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $position_err = "This position is already exist in the database.";
-                } else{
-                    $position = trim($_POST["position"]);
-                }
-            } else{
-                echo "position Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
-    }
-
-    // Validate usertype
-    if(empty(trim($_POST["usertype"]))){
-        $usertype_err = "Please enter a usertype.";
-    } else{
-        // Prepare a select statement
-        $sql = "SELECT id FROM members WHERE usertype = ?";
-        
-        if($stmt = mysqli_prepare($db, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_usertype);
-            
-            // Set parameters
-            $param_usertype = trim($_POST["usertype"]);
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $usertype_err = "This usertype is already exist in the database.";
-                } else{
-                    $usertype = trim($_POST["usertype"]);
-                }
-            } else{
-                echo "usertype Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
-    }
-
-    // Validate email
-    if(empty(trim($_POST["email"]))){
-        $email_err = "Please enter a email.";
-    } else{
-        // Prepare a select statement
-        $sql = "SELECT id FROM members WHERE email = ?";
-        
-        if($stmt = mysqli_prepare($db, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_email);
-            
-            // Set parameters
-            $param_email = trim($_POST["email"]);
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $email_err = "This email is already exist in the database.";
-                } else{
-                    $email = trim($_POST["email"]);
-                }
-            } else{
-                echo "email Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
-    }
+		//redirectig to the display page. In our case, it is myinof.php
+		header("Location: members.php");
+	}
     
-    
-    // Check input errors before inserting in database
-    if(empty($username_err) && empty($position_err) && empty($usertype_err) && empty($email_err)){
-        
-        // Prepare an insert statement
-        $sql = "INSERT INTO users (username, position, usertype, email) VALUES (?, ?, ?, ?)";
-         
-        if($stmt = mysqli_prepare($db, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_position, $param_usertype, $param_email);
-            
-            // Set parameters
-            $param_username = $username;
-            $param_position = $position;
-            $param_usertype = $usertype;
-            $param_email = $email;
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-                echo "redirect to ";
-                header("location: login.php");
-                echo "redirect to login.php";
-            } else{
-                echo "Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
-    }
     
     // Close connection
     mysqli_close($db);
@@ -350,19 +213,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="container">
                 <div id="form-messages"></div>
                 <div class="register-width">
-                    <form class="register-form" id="register-form" method="post" action="mailer.php">
+                    <form class="register-form" id="register-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <label id="username">Member name</label>
-                        <input class="custom-placeholder" type="text" name="name" required>
+                        <input class="custom-placeholder" type="text" name="username" >
                         <div class="row">
                             <div class="col-md-6">
                                 <label >Position</label>
-                                <input class="custom-placeholder" type="text" name="name" required>
+                                <input class="custom-placeholder" type="text" name="pos" required>
                             </div>
                             <div class="col-md-6">
                                 <label >User type</label> <br>
-                                <select name="birthday-day" class="date" required>
-                                                <option value="" selected disabled="disabled">select</option>
-                                                <option value="Senior Researchers">Senior Researchers</option>
+                                <select name="ty" class="date" required>
+                                                <option value="Senior Researchers" selected disabled="disabled">Senior Researchers</option>
                                                 <option value="Research Assistants">Research Assistants</option>
                                                 <option value="Postdoc">Postdoc</option>
                                                 <option value="Visiting PhD Students">Visiting PhD Students</option> 
@@ -370,38 +232,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                             <div class="col-md-6">
                                 <label id="psw">Email</label>
-                                <input class="custom-placeholder" type="text" name="name" required>
+                                <input class="custom-placeholder" type="text" name="email" required>
                             </div>
                             <div class="col-md-6">
                                 <label id="psw-repeat">Phone number</label>
-                                <input class="custom-placeholder" type="text" name="name" required>
+                                <input class="custom-placeholder" type="text" name="phone" required>
                             </div>
                             <div class="col-md-6">
                                 <label id="psw">website</label>
-                                <input class="custom-placeholder" type="text" name="name" required>
+                                <input class="custom-placeholder" type="text" name="web" required>
                             </div>
                             <div class="col-md-6">
                                 <label id="psw-repeat">Linkedin</label>
-                                <input class="custom-placeholder" type="text" name="name" required>
+                                <input class="custom-placeholder" type="text" name="link" required>
                             </div>
                             <div class="col-md-6">
                                 <label id="psw">Facebook</label>
-                                <input class="custom-placeholder" type="text" name="name" required>
+                                <input class="custom-placeholder" type="text" name="face" required>
                             </div>
                             <div class="col-md-6">
                                 <label id="psw-repeat">Twitter</label>
-                                <input class="custom-placeholder" type="text" name="name" required>
+                                <input class="custom-placeholder" type="text" name="tw" required>
                             </div>
                         </div>
 
                         <label id="username">Description</label>
-                        <input class="custom-placeholder" type="text" name="name" required>
+                        <input class="custom-placeholder" type="text" name="des" required>
 
                         <label id="username">Location</label>
-                        <input class="custom-placeholder" type="text" name="name" required>
+                        <input class="custom-placeholder" type="text" name="loc" required>
 
                         <div class="submit-btn">
-                            <button class="readon radius" type="submit">Create Account</button>
+                            <button class="readon radius" type="submit">ADD member</button>
                         </div>
                     </form>
                 </div>

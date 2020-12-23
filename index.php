@@ -1,3 +1,8 @@
+<?php
+// Initialize the session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -71,9 +76,11 @@
                         <div class="toolbar-sl-share">
                             <ul>
                                 <li><a href="register.php">Register</a></li>
-                                <li><a href="login.php">Log in</a></li>
+                                <?php if(!isset($_SESSION["loggedin"])){
+                                 echo   "<li><a href=\"login.php\">Log in</a></li>";
+                                }?>
                                 <li><a href="logout.php">Log out</a></li>
-                                <li><a href="welcome.php">My account</a></li>
+                                <!--<li><a href="welcome.php">My account</a></li>-->
                                 <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
                                 </li>
                                 <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
