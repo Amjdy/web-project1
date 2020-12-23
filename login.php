@@ -14,7 +14,6 @@ require_once "db.php";
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = "";
- 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
@@ -67,6 +66,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                               }else{
                              $_SESSION["validUser"] = false;
                             }
+                            // bottom code amjad try
+                            $idre = mysqli_query($db, "SELECT id FROM `users` WHERE `id` = $_SESSION[id] ORDER BY id DESC");
+                            $result = mysqli_fetch_array($idre);
+                            $_SESSION["iid"]=$result['id'];
+                            // above code amjad try
                             // Redirect user to welcome page
                             header("location: welcome.php");
                         } else{

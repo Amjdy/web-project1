@@ -207,18 +207,22 @@ $result = mysqli_query($db, "SELECT * FROM users ORDER BY id DESC");
         }
         
         else{
-    echo "<table width='80%' border=0>";
-   echo     "<tr bgcolor='#FFCCCC'>";
+    echo "<table class='table table-striped table-hover'>";
+    echo "<thead class='thead-dark'>";
+   echo     "<tr >";
   echo     "<td>ID</td>"; 
    echo     "<td>Name</td>";
    echo        "<td>password</td>";
    echo     "</tr>";
+   echo "</thead>";
         while($res = mysqli_fetch_array($result)) {         
             echo "<tr>";
             echo "<td>".$res['id']."</td>";
             echo "<td><font color='red'>".$res['username']."</font></td>";
-            echo "<td><font color='orange'>".$res['password']."</font></td>";   
-                   
+            echo "<td><font color='orange'>".$res['password']."</font></td>";
+            if ($_SESSION["iid"]==$res['id']) {
+                echo "<td><a href=\"editinfo.php?id=$res[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$res[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a></td>";  
+            }       
         }
     }
        
