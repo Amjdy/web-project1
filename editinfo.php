@@ -2,7 +2,7 @@
 // including the database connection file
 include_once("db.php");
 
-	$username_err = "";	
+    $username_err = "";	
 if(isset($_POST['submit']))
 {	
 	$fn = $_POST['username'];
@@ -14,41 +14,45 @@ if(isset($_POST['submit']))
 	$fb = $_POST['face'];
 	$ws = $_POST['web'];
 	$lk =  $_POST['link'];
-	$twi =  $_POST['tw'];
+    $twi =  $_POST['tw'];
+    $id1 = $_POST['id'];
 
-	
-	// checking empty fields
+ 	// checking empty fields
 	if(empty($fn) ) {
 			//echo "<font color='red'>Name field is empty.</font><br/>";
 			$username_err= "Please enter your Full name";
 			
 	} else {	
 		//updating the table
-		$result = mysqli_query($db, "UPDATE members SET Name='$fn',position='$ps', description='$ds',location='$lc' phone_number='$ph',email='$em', facebook='$fb', website='$ws', linkedin='$lk', twitter='$twi' WHERE id=$id");
+		$result1 = mysqli_query($db, "UPDATE members SET Name='".$fn."', position='".$ps."', description='".$ds."', location='".$lc."', phone_number='".$ph."', email='".$em."', facebook='".$fb."', website='".$ws."', linkedin='".$lk."', twitter='".$twi."' WHERE id='".$id1."'");
+
+        echo "Id:   pppp" .$id1."      ";
+        
+        //redirectig to the display page. In our case, it is myinof.php
+        
+           header("Location: members.php");
+        
 		
-		//redirectig to the display page. In our case, it is myinof.php
-		header("Location: members.php");
 	}
 }
-?>
-<?php
+
 
 //getting id from url
-$id = $_GET['id'];
+ $id = $_GET['id'];
 //selecting data associated with this particular id
 $result = mysqli_query($db, "SELECT * FROM members WHERE id=$id");
 while($res = mysqli_fetch_array($result))
 {
-	$fn1 = $res['Name'];
-	$ps1 =  $res['Position'];
-	$ds1 =  $res['description'];
-	$lc1 = $res['location'];
-	$ph1 =  $res['phone_number'];
-	$em1 =  $res['email'];
-	$fb1 = $res['facebook'];
-	$ws1 = $res['website'];
-	$lk1 =  $res['linkedin'];
-	$twi1 =  $res['twitter'];
+	$fn = $res['Name'];
+	$ps =  $res['Position'];
+	$ds =  $res['description'];
+	$lc = $res['location'];
+	$ph =  $res['phone_number'];
+	$em =  $res['email'];
+	$fb = $res['facebook'];
+	$ws = $res['website'];
+	$lk =  $res['linkedin'];
+    $twi =  $res['twitter'];
 }
 ?>
 
@@ -127,10 +131,12 @@ while($res = mysqli_fetch_array($result))
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <li><a href="register.php">Register</a></li>
-                                <li><a href="login.php">Log in</a></li>
-                                <li><a href="logout.php">Log out</a></li>
-                                <li><a href="welcome.php">My account</a></li>
+                                <!--<li><a href="register.php">Register</a></li>-->
+                                <?php if(!isset($_SESSION["loggedin"])){
+                                 echo   "<li><a href=\"login.php\">Log in</a></li>";
+                                }else{
+                                    echo "<li><a href=\"logout.php\">Log out</a></li>";
+                                    }?>
                                 <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
                                 <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
@@ -151,7 +157,7 @@ while($res = mysqli_fetch_array($result))
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="logo-area">
-                            <a href="index.html"><img src="images/riotu-logo-w.png" alt="logo"></a>
+                            <a href="index.php"><img src="images/riotu-logo-w.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-9 mobile-menu-area">
@@ -161,7 +167,7 @@ while($res = mysqli_fetch_array($result))
                                 <nav class="rs-menu">
                                     <ul class="nav-menu">
                                         <!-- Home -->
-                                        <li class="active"><a href="index.html">Home</a></li>
+                                        <li class="active"><a href="index.php">Home</a></li>
                                         <!-- End Home -->
                                         <!-- Research -->
                                         <li><a href="research.html">Research</a></li>
@@ -204,11 +210,11 @@ while($res = mysqli_fetch_array($result))
                 <div class="breadcrumbs-inner">
                     <div class="container">
                         <div class="breadcrumbs-text">
-                            <h1 class="breadcrumbs-title mb-17">RESEARCH</h1>
+                            <h1 class="breadcrumbs-title mb-17">Edit member</h1>
                             <div class="categories">
                                 <ul>
-                                    <li><a href="index.html"><i class="fa fa-house"></i> Home</a></li>
-                                    <li>RESEARCH</li>
+                                    <li><a href="index.php"><i class="fa fa-house"></i> Home</a></li>
+                                    <li>Edit</li>
                                 </ul>
                             </div>
                         </div>
@@ -232,24 +238,26 @@ while($res = mysqli_fetch_array($result))
             <div id="form-messages"></div>
             <div class="login-width">
                 <form class="login-form" id="login-form" method="post"
-                    action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    action="editinfo.php">
 
                     <div class="<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                         <label id="username">Full Name*</label>
                         <input type="text" name="username" class="custom-placeholder" required
-							value="<?php echo $fn1; ?>">
+                            value="<?php echo $fn; ?>">
 							<span class="help-block"><?php echo $username_err;?></span>
                     </div>
 
                     <div>
                         <label id="Pos">Possition*</label>
 						<input type="text" name="pos" class="custom-placeholder"
-							value="<?php echo $ps1; ?>">
+                            value="<?php echo $ps; ?>">
+                           <input type="hidden" name="id" class="custom-placeholder"
+                            value="<?php echo $id; ?>"> 
 					</div>
                     <div>
                         <label id="des">Description*</label>
                         <textarea type="text" id="comment" rows="5" name="des" class="form-control ">
-							<?php echo $ds1; ?></textarea>
+							<?php echo $ds; ?></textarea>
 						
 
                     </div>
@@ -257,47 +265,48 @@ while($res = mysqli_fetch_array($result))
                     <div>
                         <label id="loc">Location*</label>
 						<textarea type="text" id="comment" rows="5" name="loc" class="form-control ">
-							<?php echo $lc1; ?></textarea>
+                            <?php echo $lc; ?></textarea>
+                            
 					</div>
 					<br>
                     <div>
                         <label id="phone">Phone number*</label>
                         <input type="text" name="phone" class="custom-placeholder" 
-                            value="<?php echo $ph1; ?>">
+                            value="<?php echo $ph; ?>">
                     </div>
 
                     <div >
                         <label id="email">Email*</label>
 						<input type="text" name="email" class="custom-placeholder" 
-						   value="<?php echo $em1; ?>">
+						   value="<?php echo $em; ?>">
 					</div>
 
                     <div>
                         <label id="face">Facebook*</label>
                         <input type="text" name="face" class="custom-placeholder" 
-                            value="<?php echo $fb1; ?>">
+                            value="<?php echo $fb; ?>">
                     </div>
 
                     <div>
-                        <label id="Web">Website*</label>
-						<input type="text" name="Web" class="custom-placeholder" 
-                            value="<?php echo $ws1; ?>">
+                        <label id="web">Website*</label>
+						<input type="text" name="web" class="custom-placeholder" 
+                            value="<?php echo $ws; ?>">
                     </div>
 
                     <div>
                         <label id="link">Linkedin*</label>
                         <input type="text" name="link" class="custom-placeholder" 
-                            value="<?php echo $lk1; ?>">
+                            value="<?php echo $lk; ?>">
                     </div>
 
                     <div >
                         <label id="tw">Twitter*</label>
 						<input type="text" name="tw" class="custom-placeholder" 
-                            value="<?php echo $twi1; ?>">
+                            value="<?php echo $twi; ?>">
 					</div>	
 									
                     <div class="login-btn mt-10 mb-21">
-                        <button class="readon" type="submit">Submit changes</button>
+                        <button class="readon" name ="submit" type="submit">Submit changes</button>
                     </div>
                 </form>
 
@@ -357,7 +366,7 @@ while($res = mysqli_fetch_array($result))
                             <div class="row">
                                 <div class="col-lg-6 pr-0">
                                     <ul>
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="index.php">Home</a></li>
                                         <li><a href="research.html">Research</a></li>
                                         <li><a href="projects.html">projects</a></li>
                                         <li><a href="members.php">Members</a></li>

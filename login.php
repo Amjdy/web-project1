@@ -68,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             }
                             
                             // Redirect user to welcome page
-                            header("location: index.html");
+                            header("location: index.php");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The ID you entered was not valid.";
@@ -175,7 +175,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <li><a href="register.php">Register</a></li>
                                 <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
                                 </li>
                                 <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
@@ -201,7 +200,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="logo-area">
-                            <a href="index.html"><img src="images/riotu-logo-w.png" alt="logo"></a>
+                            <a href="index.php"><img src="images/riotu-logo-w.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-9 mobile-menu-area">
@@ -211,7 +210,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <nav class="rs-menu">
                                     <ul class="nav-menu">
                                         <!-- Home -->
-                                        <li class="active"><a href="index.html">Home</a></li>
+                                        <li class="active"><a href="index.php">Home</a></li>
                                         <!-- End Home -->
                                         <!-- Research -->
                                         <li><a href="research.html">Research</a></li>
@@ -258,7 +257,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <h1 class="breadcrumbs-title mb-17">Login</h1>
                         <div class="categories">
                             <ul>
-                                <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+                                <li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
                                 <li>Login</li>
                             </ul>
                         </div>
@@ -357,7 +356,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="row">
                                 <div class="col-lg-6 pr-0">
                                     <ul>
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="index.php">Home</a></li>
                                         <li><a href="research.html">Research</a></li>
                                         <li><a href="projects.html">projects</a></li>
                                         <li><a href="members.php">Members</a></li>

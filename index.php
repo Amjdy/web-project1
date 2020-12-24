@@ -75,11 +75,13 @@ session_start();
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <li><a href="register.php">Register</a></li>
+                                <!--<li><a href="register.php">Register</a></li>-->
                                 <?php if(!isset($_SESSION["loggedin"])){
                                  echo   "<li><a href=\"login.php\">Log in</a></li>";
-                                }?>
-                                <li><a href="logout.php">Log out</a></li>
+                                }else{
+                                    echo "<li><a href=\"logout.php\">Log out</a></li>";
+                                    }?>
+                                
                                 <!--<li><a href="welcome.php">My account</a></li>-->
                                 <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
                                 </li>
@@ -106,7 +108,7 @@ session_start();
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="logo-area" >
-                            <a href="index.html"><img src="images/riotu-logo-w2.png" width="140" height="27" alt="logo"></a>
+                            <a href="index.php"><img src="images/riotu-logo-w2.png" width="140" height="27" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-9 mobile-menu-area">
@@ -116,7 +118,7 @@ session_start();
                                 <nav class="rs-menu">
                                     <ul class="nav-menu">
                                         <!-- Home -->
-                                        <li class="active"><a href="index.html">Home</a></li>
+                                        <li class="active"><a href="index.php">Home</a></li>
                                         <!-- End Home -->
                                         <!-- Research -->
                                         <li><a href="research.html">Research</a></li>
@@ -573,7 +575,7 @@ session_start();
                             <div class="row">
                                 <div class="col-lg-6 pr-0">
                                     <ul>
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="index.php">Home</a></li>
                                         <li><a href="research.html">Research</a></li>
                                         <li><a href="projects.html">projects</a></li>
                                         <li><a href="members.php">Members</a></li>

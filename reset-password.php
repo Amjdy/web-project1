@@ -174,7 +174,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="logo-area">
-                            <a href="index.html"><img src="images/riotu-logo-w.png" alt="logo"></a>
+                            <a href="index.php"><img src="images/riotu-logo-w.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-9 mobile-menu-area">
@@ -184,7 +184,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <nav class="rs-menu">
                                     <ul class="nav-menu">
                                         <!-- Home -->
-                                        <li class="active"><a href="index.html">Home</a></li>
+                                        <li class="active"><a href="index.php">Home</a></li>
                                         <!-- End Home -->
                                         <!-- Research -->
                                         <li><a href="research.html">Research</a></li>
@@ -231,7 +231,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <h1 class="breadcrumbs-title mb-17">Password Reset</h1>
                         <div class="categories">
                             <ul>
-                                <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+                                <li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
                                 <li>reset-password</li>
                             </ul>
                         </div>
@@ -315,7 +315,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="row">
                                 <div class="col-lg-6 pr-0">
                                     <ul>
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="index.php">Home</a></li>
                                         <li><a href="research.html">Research</a></li>
                                         <li><a href="projects.html">projects</a></li>
                                         <li><a href="members.php">Members</a></li>

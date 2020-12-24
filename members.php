@@ -21,6 +21,7 @@ session_start();
     <link rel="shortcut icon" type="image/x-icon" href="images/riotu-w.png">
     <!-- bootstrap v4 css -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- font-awesome css -->
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <!-- animate css -->
@@ -78,10 +79,12 @@ session_start();
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <li><a href="register.php">Register</a></li>
-                                <li><a href="login.php">Log in</a></li>
-                                <li><a href="logout.php">Log out</a></li>
-                                <li><a href="welcome.php">My account</a></li>
+                                <!--<li><a href="register.php">Register</a></li>-->
+                                <?php if(!isset($_SESSION["loggedin"])){
+                                 echo   "<li><a href=\"login.php\">Log in</a></li>";
+                                }else{
+                                    echo "<li><a href=\"logout.php\">Log out</a></li>";
+                                    }?>
                                 <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a></li>
                                 <li><a href="https://www.youtube.com/channel/UCJypzBiFE8C793Q_PC6X8IQ/videos?view_as=subscriber"><i class="fa fa-youtube-play"></i></a></li>
@@ -102,7 +105,7 @@ session_start();
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="logo-area">
-                            <a href="index.html"><img src="images/riotu-logo-w.png" alt="logo"></a>
+                            <a href="index.php"><img src="images/riotu-logo-w.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-9 mobile-menu-area">
@@ -112,7 +115,7 @@ session_start();
                                 <nav class="rs-menu">
                                     <ul class="nav-menu">
                                         <!-- Home -->
-                                        <li class="active"><a href="index.html">Home</a></li>
+                                        <li class="active"><a href="index.php">Home</a></li>
                                         <!-- End Home -->
                                         <!-- Research -->
                                         <li><a href="research.html">Research</a></li>
@@ -158,7 +161,7 @@ session_start();
                         <h1 class="breadcrumbs-title mb-17">Members</h1>
                         <div class="categories">
                             <ul>
-                                <li><a href="index.html"><i class="fa fa-house"></i> Home</a></li>
+                                <li><a href="index.php"><i class="fa fa-house"></i> Home</a></li>
                                 <li>Members</li>
                             </ul>
                         </div>
@@ -187,9 +190,10 @@ session_start();
 
                         <div class="about-title">
                             <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>"
-                            </h3>
+                            </h3> 
+                            <a href="<?php echo "#demo".$row["id"]?>" class="btn btn-outline-secondary" data-toggle="collapse">Read more</a>
                         </div>
-                        <div class="about-desc">
+                        <div id="<?php echo "demo".$row["id"]?>" class="about-desc collapse">
                             <p class="desc-txt"><?php echo $row["description"];?></p>
                             <p>-----------------</p>
                             <p class="sm">
@@ -214,7 +218,9 @@ session_start();
                                     class="fa fa-twitter"></i> </a>
                                 <br><br>
                                    <?php if(isset($_SESSION["validUser"])){
+                                       if($_SESSION["validUser"] || $_SESSION["id"]==$row['id']){
                                     echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                       }
                                    }?>
                         </div>
                     </div>
@@ -235,8 +241,9 @@ session_start();
                         <div class="about-title">
                             <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>"
                             </h3>
+                            <a href="<?php echo "#demo".$row["id"]?>" class="btn btn-outline-secondary" data-toggle="collapse">Read more</a>
                         </div>
-                        <div class="about-desc">
+                            <div id="<?php echo "demo".$row["id"]?>" class="about-desc collapse">
                             <p class="desc-txt"><?php echo $row["description"];?></p>
                             <p>-----------------</p>
                             <p class="sm">
@@ -261,7 +268,9 @@ session_start();
                                     class="fa fa-twitter"></i> </a>
                                     <br><br>
                                    <?php if(isset($_SESSION["validUser"])){
+                                       if($_SESSION["validUser"] || $_SESSION["id"]==$row['id']){
                                     echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                       }
                                    }?>
                         </div>
                     </div>
@@ -282,8 +291,10 @@ session_start();
                         <div class="about-title">
                             <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>"
                             </h3>
+                            <a href="<?php echo "#demo".$row["id"]?>" class="btn btn-outline-secondary" data-toggle="collapse">Read more</a>
+                           
                         </div>
-                        <div class="about-desc">
+                        <div id="<?php echo "demo".$row["id"]?>" class="about-desc collapse">
                             <p class="desc-txt"><?php echo $row["description"];?></p>
                             <p>-----------------</p>
                             <p class="sm">
@@ -308,7 +319,9 @@ session_start();
                                     class="fa fa-twitter"></i> </a>
                                     <br><br>
                                    <?php if(isset($_SESSION["validUser"])){
+                                       if($_SESSION["validUser"] || $_SESSION["id"]==$row['id']){
                                     echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                       }
                                    }?>
                         </div>
                     </div>
@@ -321,15 +334,18 @@ session_start();
                 <?php 
                 $sel_query1= "select * from members where memberType='Visiting PhD Students'; ";
                 $result = mysqli_query($db,$sel_query1);
-                while($row= mysqli_fetch_assoc($result)){ ?>
+                while($row= mysqli_fetch_assoc($result)){
+                    $i =0; ?>
                 <div class="col-lg-4 col-md-6 mb-40">
                     <div class="single-about style2 text-center box-shadow">
 
                         <div class="about-title">
                             <h3 class="title mb-15"><?php echo $row["Name"];?> <br> "<?php echo $row["Position"];?>"
                             </h3>
+                            <a href="<?php echo "#demo".$row["id"]?>" class="btn btn-outline-secondary" data-toggle="collapse">Read more</a>
+                            
                         </div>
-                        <div class="about-desc">
+                        <div id="<?php echo "demo".$row["id"]?>" class="about-desc collapse">
                             <p class="desc-txt"><?php echo $row["description"];?></p>
                             <p>-----------------</p>
                             <p class="sm">
@@ -354,14 +370,20 @@ session_start();
                                     class="fa fa-twitter"></i> </a>
                                     <br><br>
                                    <?php if(isset($_SESSION["validUser"])){
+                                       if($_SESSION["validUser"] || $_SESSION["id"]==$row['id']){
                                     echo "<a href=\"editinfo.php?id=$row[id]\">Edit</a> | <a href=\"deleteinfo.php?id=$row[id]\" onClick=\"return confirm('Do you want to delete?')\">Delete</a>";
+                                       }
                                    }?>
                         </div>
                     </div>
-                </div> <?php } ?>
+                </div> <?php $i +=1; } ?>
             </div>
-
+            <div class="row justify-content-center ">
+<div class="login-btn mt-10 mb-21 ">
+                        <a class="readon text-center" style="width: 500px;" href="admin.php">Add new member</a>
+                    </div></div>
         </div><!-- .container end -->
+        
     </div>
     <!-- Services Section End-->
 
@@ -402,7 +424,7 @@ session_start();
                             <div class="row">
                                 <div class="col-lg-6 pr-0">
                                     <ul>
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="index.php">Home</a></li>
                                         <li><a href="research.html">Research</a></li>
                                         <li><a href="projects.html">projects</a></li>
                                         <li><a href="members.php">Members</a></li>

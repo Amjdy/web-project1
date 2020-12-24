@@ -16,12 +16,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$em =  $_POST['email'];
 	$fb = $_POST['face'];
 	$ws = $_POST['web'];
-	$lk =  $_POST['link'];
-    $twi =  $_POST['tw'];
-    foreach ($_GET['ty'] as $selectedOption)
-    $type = $selectedOption;
+    $lk =  $_POST['link'];
+	$twi =  $_POST['tw'];
 
-	
+$type = $_POST['ty'];
+
 	// checking empty fields
 	if(empty($fn) ) {
 			//echo "<font color='red'>Name field is empty.</font><br/>";
@@ -29,8 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 	} else {	
 		//updating the table
-		$result = mysqli_query($db, "INSERT INTO members Name='$fn',position='$ps', description='$ds',location='$lc' phone_number='$ph',email='$em', facebook='$fb', website='$ws', linkedin='$lk', twitter='$twi', memberType='$type' ");
-
+		$result = mysqli_query($db, "INSERT INTO members (Name, position, description, location, phone_number, email, facebook, website, linkedin, twitter, memberType)VALUES ('$fn', '$ps', '$ds', '$lc', '$ph', '$em', '$fb', '$ws', '$lk', '$twi', '$type')");
 		//redirectig to the display page. In our case, it is myinof.php
 		header("Location: members.php");
 	}
@@ -114,8 +112,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="col-lg-6 col-sm-5 col-xs-12">
                         <div class="toolbar-sl-share">
                             <ul>
-                                <li><a href="logout.php">Log out</a></li>
-                                <li><a href="welcome.php">My account</a></li>
+                                <!--<li><a href="register.php">Register</a></li>-->
+                                <?php if(!isset($_SESSION["loggedin"])){
+                                 echo   "<li><a href=\"login.php\">Log in</a></li>";
+                                }else{
+                                    echo "<li><a href=\"logout.php\">Log out</a></li>";
+                                    }?>
                                 <li><a href="https://www.facebook.com/riotu.center"><i class="fa fa-facebook"></i></a>
                                 </li>
                                 <li><a href="https://www.instagram.com/riotu_lab/"><i class="fa fa-instagram"></i></a>
@@ -141,7 +143,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="logo-area">
-                            <a href="index.html"><img src="images/riotu-logo-w.png" alt="logo"></a>
+                            <a href="index.php"><img src="images/riotu-logo-w.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-9 mobile-menu-area">
@@ -151,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <nav class="rs-menu">
                                     <ul class="nav-menu">
                                         <!-- Home -->
-                                        <li class="active"><a href="index.html">Home</a></li>
+                                        <li class="active"><a href="index.php">Home</a></li>
                                         <!-- End Home -->
                                         <!-- Research -->
                                         <li><a href="research.html">Research</a></li>
@@ -197,7 +199,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <h1 class="breadcrumbs-title mb-17">Admin</h1>
                             <div class="categories">
                                 <ul>
-                                    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+                                    <li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
                                     <li>Admin</li>
                                 </ul>
                             </div>
@@ -208,6 +210,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <!-- Breadcrumbs End -->
 
+
+
+
+
         <!-- Registration Section Start -->
         <div id="neuron-registration" class="neuron-registration pt-92 pb-100 md-pt-71 md-pb-80">
             <div class="container">
@@ -215,16 +221,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="register-width">
                     <form class="register-form" id="register-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <label id="username">Member name</label>
-                        <input class="custom-placeholder" type="text" name="username" >
+                        <input class="custom-placeholder" type="text" name="username" required>
                         <div class="row">
                             <div class="col-md-6">
                                 <label >Position</label>
-                                <input class="custom-placeholder" type="text" name="pos" required>
+                                <input class="custom-placeholder" type="text" name="pos" >
                             </div>
                             <div class="col-md-6">
                                 <label >User type</label> <br>
                                 <select name="ty" class="date" required>
-                                                <option value="Senior Researchers" selected disabled="disabled">Senior Researchers</option>
+                                                <option value="select" selected disabled="disabled">Select</option>
+                                                <option value="Senior Researchers">Senior Researchers</option>
                                                 <option value="Research Assistants">Research Assistants</option>
                                                 <option value="Postdoc">Postdoc</option>
                                                 <option value="Visiting PhD Students">Visiting PhD Students</option> 
@@ -232,35 +239,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                             <div class="col-md-6">
                                 <label id="psw">Email</label>
-                                <input class="custom-placeholder" type="text" name="email" required>
+                                <input class="custom-placeholder" type="text" name="email" >
                             </div>
                             <div class="col-md-6">
                                 <label id="psw-repeat">Phone number</label>
-                                <input class="custom-placeholder" type="text" name="phone" required>
+                                <input class="custom-placeholder" type="text" name="phone" >
                             </div>
                             <div class="col-md-6">
                                 <label id="psw">website</label>
-                                <input class="custom-placeholder" type="text" name="web" required>
+                                <input class="custom-placeholder" type="text" name="web" >
                             </div>
                             <div class="col-md-6">
                                 <label id="psw-repeat">Linkedin</label>
-                                <input class="custom-placeholder" type="text" name="link" required>
+                                <input class="custom-placeholder" type="text" name="link" >
                             </div>
                             <div class="col-md-6">
                                 <label id="psw">Facebook</label>
-                                <input class="custom-placeholder" type="text" name="face" required>
+                                <input class="custom-placeholder" type="text" name="face" >
                             </div>
                             <div class="col-md-6">
                                 <label id="psw-repeat">Twitter</label>
-                                <input class="custom-placeholder" type="text" name="tw" required>
+                                <input class="custom-placeholder" type="text" name="tw" >
                             </div>
                         </div>
 
                         <label id="username">Description</label>
-                        <input class="custom-placeholder" type="text" name="des" required>
+                        <input class="custom-placeholder" type="text" name="des" >
 
                         <label id="username">Location</label>
-                        <input class="custom-placeholder" type="text" name="loc" required>
+                        <input class="custom-placeholder" type="text" name="loc" >
 
                         <div class="submit-btn">
                             <button class="readon radius" type="submit">ADD member</button>
