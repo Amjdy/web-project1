@@ -164,11 +164,11 @@ session_start();
                         <div class="row align-items-center">
                             <div class="col-lg-12 col-md-8 col-sm-12 padding-0 col-padding-md">
                                 <div class="slider-text">
-                                    <h1 class="white-color mb-0 semi-bold" data-animation-in="slideInDown"
-                                        data-animation-out="animate-out slideOutUp">Robotics and Internet of Things
+                                    <h1 class="white-color mb-0 semi-bold text-center" data-animation-in="slideInDown"
+                                        data-animation-out="animate-out slideOutUp ">Robotics and Internet of Things
                                         University-Lab</h1>
                                     <div data-animation-in="slideInRight" data-animation-out="animate-out fadeOut"
-                                        class="btm-date">
+                                        class="btm-date text-center">
                                         in prince Sultan university
                                     </div>
                                     
